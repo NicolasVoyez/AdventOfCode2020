@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace AdventOfCode2020.Solvers
@@ -137,15 +138,17 @@ namespace AdventOfCode2020.Solvers
 
         public string SolveSecondProblem(string firstProblemSolution)
         {
+            Stopwatch sw = Stopwatch.StartNew();
+            int runs = 0;
             for (int i = 0; i < _game.Instructions.Count; i++)
             {
                 if (_game.Instructions[i].Action == Order.Accumulate)
                     continue;
-
+                runs++;
                 var gameCopy = _game.Copy();
                 gameCopy.Instructions[i].Switch();
                 if (gameCopy.Execute(i => i.ExecutedOnce, p => p == _game.Instructions.Count))
-                    return gameCopy.Accumulator.ToString();
+                    return $"Result found after {runs} runs : {gameCopy.Accumulator}. Took {sw.ElapsedMilliseconds} ms";
             }
 
             return "Not Found";
