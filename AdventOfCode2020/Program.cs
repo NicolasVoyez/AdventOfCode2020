@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -58,12 +59,14 @@ namespace AdventOfCode2020
                     ?.GetConstructor(new Type[0])?.Invoke(new object[0]);
                 if (solver != null)
                 {
+                    var sw = Stopwatch.StartNew();
                     solver.InitInput(input);
                     var ex1 = solver.SolveFirstProblem();
                     Console.WriteLine($"Solving exercice of day {num}");
-                    Console.WriteLine("Answer to exercice 1 is : " + ex1);
+                    Console.WriteLine("Answer to exercice 1 is : " + ex1 + " ... (answer found in " + sw.ElapsedMilliseconds + " ms).");
+                    sw = Stopwatch.StartNew();
                     if (solver.Question2CodeIsDone)
-                        Console.WriteLine("Answer to exercice 2 is : " + solver.SolveSecondProblem(ex1));
+                        Console.WriteLine("Answer to exercice 2 is : " + solver.SolveSecondProblem(ex1) + " ... (answer found in " + sw.ElapsedMilliseconds + " ms).");
                     Console.WriteLine();
                     return true;
                 }
