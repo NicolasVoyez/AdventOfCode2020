@@ -107,7 +107,6 @@ namespace AdventOfCode2020.Solvers
             FlatenProblem(_flatenedRulesPart2);
 
             var zeroString = "^" + _flatenedRulesPart2["0"].Replace(" ", "") + "$";
-            var regex = new Regex(zeroString);
 
             return _proposals.Count(p => Regex.IsMatch(p, zeroString)).ToString();
         }
